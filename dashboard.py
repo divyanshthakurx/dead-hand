@@ -8,7 +8,6 @@ st.title("💀 Dead Hand: Dark Pattern Detective")
 
 runs_dir = os.path.join("data", "runs")
 
-# Sidebar Selection
 if os.path.exists(runs_dir):
     run_folders = sorted(os.listdir(runs_dir), reverse=True)
     selected_run = st.sidebar.selectbox("Select Mission", run_folders)
@@ -21,7 +20,7 @@ if selected_run:
     report_path = os.path.join(run_path, "report.json")
     
     if os.path.exists(report_path):
-        # Auto-refresh helper
+        # Refresh Data
         if st.sidebar.button("Refresh Data"):
             st.rerun()
             
@@ -49,7 +48,6 @@ if selected_run:
 
         st.divider()
 
-        # Display Steps
         for step in steps:
             with st.container():
                 st.subheader(f"Step {step.get('step')}")
@@ -66,7 +64,7 @@ if selected_run:
                 
                 with c2:
                     analysis = step.get('analysis', {})
-                    # --- FIX 2: Use correct key ---
+                    
                     score = analysis.get('score', 0)
                     
                     color = "green" if score < 4 else "orange" if score < 7 else "red"
@@ -74,7 +72,7 @@ if selected_run:
                     st.markdown(f"**Verdict:** {analysis.get('verdict', 'N/A')}")
                     
                     st.markdown("**Findings:**")
-                    # Handle both list and string findings just in case
+                    
                     findings = analysis.get('findings', [])
                     if isinstance(findings, list):
                         for pat in findings:

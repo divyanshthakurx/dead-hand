@@ -4,7 +4,6 @@ from droidrun.tools import AdbTools
 import os
 import json
 
-# Initialize analyzer
 analyzer = DarknessAnalyzer()
 adb = AdbTools()
 
@@ -29,7 +28,6 @@ def check_for_dark_patterns(step_name: str) -> str:
         "image": temp_path # In production, rename this with timestamp to keep history
     }
     
-    # Append to report.json
     try:
         with open("report.json", "r+") as f:
             data = json.load(f)
@@ -42,7 +40,6 @@ def check_for_dark_patterns(step_name: str) -> str:
 
     return f"Darkness Score: {result.get('score')}/10. Findings: {result.get('findings')}"
 
-# Wrap it for DroidRun
 dark_pattern_tool = Tool(
     name="check_for_dark_patterns",
     description="Analyzes the current screen for dark patterns. Use this after every navigation action.",

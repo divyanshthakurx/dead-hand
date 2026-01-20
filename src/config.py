@@ -8,5 +8,4 @@ class Config:
     MODEL_NAME = os.getenv("MODEL_NAME", "google/gemini-2.0-flash-001")
     RUNS_DIR = os.path.join(os.getcwd(), "data", "runs")
     
-    # Ensure runs directory exists
     os.makedirs(RUNS_DIR, exist_ok=True)  
