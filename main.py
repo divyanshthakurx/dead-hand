@@ -1,71 +1,49 @@
-import argparse
+import asyncio
 import os
-import json
-import time
-from datetime import datetime
-from src.config import Config
-from src.droid_utils import DeviceController
-from src.analyzer import DarknessAnalyzer
-from src.navigator import NavigationAgent  # <--- IMPORT THIS
+from dotenv import load_dotenv
 
-def run_dead_hand(prompt, max_steps):
-    run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_dir = os.path.join(Config.RUNS_DIR, run_id)
-    os.makedirs(run_dir, exist_ok=True)
+# DroidRun Imports
+from droidrun import DroidAgent
+from droidrun.config import DroidrunConfig
+from droidrun.tools import load_tools
 
-    print(f"💀 Starting Dead Hand Operation: {run_id}")
-    print(f"🎯 Target: {prompt}")
+# Import our custom tool
+from src.tools import dark_pattern_tool
 
-    device = DeviceController()
-    analyzer = DarknessAnalyzer()
-    navigator = NavigationAgent() # <--- INITIALIZE NAVIGATOR
+load_dotenv()
+
+async def run_dead_hand():
+    # 1. Define the Goal with strict instructions
+    user_prompt = "Open amazon app and search for realme buds t310 and add them to cart."
     
-    report = {
-        "id": run_id,
-        "prompt": prompt,
-        "start_time": str(datetime.now()),
-        "steps": []
-    }
+    system_instruction = """
+    You are Dead Hand, an auditor agent.
+    IMPORTANT: You must call the tool 'check_for_dark_patterns' after EVERY major UI change (like opening an app, clicking search, or viewing a product).
+    Don't just navigate; audit the screen.
+    """
+    
+    full_goal = f"{system_instruction}\n\nTask: {user_prompt}"
 
-    for i in range(1, max_steps + 1):
-        print(f"\n--- Step {i}/{max_steps} ---")
-        
-        # 1. Capture State
-        screenshot_path = device.capture_screen(run_dir, i)
-        print(f"📸 Screenshot saved.")
+    # 2. Load Standard Tools (ADB, etc.)
+    tools_list, _ = await load_tools()
+    
+    # 3. Add our Custom Tool
+    tools_list.append(dark_pattern_tool)
 
-        # 2. Analyze for Dark Patterns
-        print("🕵️ Analyzing UI...")
-        analysis_json = analyzer.analyze_step(screenshot_path, prompt)
-        analysis_data = json.loads(analysis_json)
-        
-        # 3. Decide Next Action (Navigation)
-        print("🧠 Planning next move...")
-        action_data = navigator.get_next_action(screenshot_path, prompt, report['steps'])
-        
-        # Log everything
-        step_record = {
-            "step": i,
-            "screenshot": screenshot_path,
-            "analysis": analysis_data,
-            "action": action_data
-        }
-        report["steps"].append(step_record)
-        
-        # Save Log
-        with open(os.path.join(run_dir, "report.json"), "w") as f:
-            json.dump(report, f, indent=4)
+    # 4. Configure Agent (Using OpenRouter/OpenAI compatible)
+    # Note: DroidRun usually auto-detects from .env or config.yaml
+    # We ensure it uses the CodeAct agent pattern which handles tools well.
+    agent = DroidAgent(
+        goal=full_goal,
+        tools=tools_list,
+        vision=True, # Let DroidRun see the screen too
+    )
 
-        # 4. EXECUTE MOVE
-        device.execute_action(action_data)
-
-    print(f"\n✅ Mission Complete.")
-    print(f"📊 Run 'streamlit run dashboard.py' to view results.")
+    print(f"💀 Starting Dead Hand Agent...")
+    print(f"🎯 Goal: {user_prompt}")
+    
+    # 5. Run!
+    await agent.run()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("prompt", type=str)
-    parser.add_argument("--steps", type=int, default=10)
-    args = parser.parse_args()
-    
-    run_dead_hand(args.prompt, args.steps)
+    asyncio.run(run_dead_hand())

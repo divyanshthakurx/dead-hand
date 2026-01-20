@@ -1,0 +1,31 @@
+{
+    "id": "20260120_131030",
+    "prompt": "Spotify Roll",
+    "start_time": "2026-01-20 13:10:46.912733",
+    "steps": [
+        {
+            "step": 1,
+            "timestamp": "2026-01-20 13:10:59.479343",
+            "screenshot": "data\\runs\\20260120_131030\\step_1.png",
+            "analysis": {
+                "score": 0,
+                "findings": [
+                    "Analysis Failed"
+                ],
+                "verdict": "Error"
+            }
+        },
+        {
+            "step": 2,
+            "timestamp": "2026-01-20 13:11:11.090435",
+            "screenshot": "data\\runs\\20260120_131030\\step_2.png",
+            "analysis": {
+                "score": 0,
+                "findings": [
+                    "Analysis Failed"
+                ],
+                "verdict": "Error"
+            }
+        }
+    ]
+}
