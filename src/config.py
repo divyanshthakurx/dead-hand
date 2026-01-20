@@ -11,6 +11,7 @@ class Config:
     CHECK_INTERVAL = 1.0     
     COOLDOWN_SECONDS = 2.0   
     
+<<<<<<< HEAD
     RUN_ID = None 
     RUNS_DIR = os.path.join("data", "runs")
     
@@ -21,3 +22,6 @@ class Config:
         run_dir = os.path.join(Config.RUNS_DIR, run_id)
         os.makedirs(run_dir, exist_ok=True)
         return run_id, run_dir  
+=======
+    os.makedirs(RUNS_DIR, exist_ok=True)  
+>>>>>>> 3af66f5 (fixed file structure and added helper functions)

@@ -1,3 +1,6 @@
 .env
+<<<<<<< HEAD
 __pycache__/
 *.pyc
+=======
+>>>>>>> 3af66f5 (fixed file structure and added helper functions)
