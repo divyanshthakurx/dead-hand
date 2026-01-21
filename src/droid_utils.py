@@ -1,10 +1,7 @@
 import os
 import time
-<<<<<<< HEAD
 import hashlib
 from PIL import Image
-=======
->>>>>>> 3af66f5 (fixed file structure and added helper functions)
 
 class DeviceController:
     def __init__(self):
