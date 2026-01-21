@@ -1,4 +1,4 @@
-# Dead Hand: The Anti-Frustration Agent
+# Dead Hand: The Dark Pattern Detective
 
 <div align="center">
 
