@@ -2,6 +2,9 @@
 
 <div align="center">
 
+<img src="assets/dead-hand_logo.png" width="300" alt="Dead Hand Logo">
+<br>
+
 [![Built with Droidrun](https://img.shields.io/badge/Built_with-Droidrun-0D9373)](https://droidrun.ai)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -10,7 +13,7 @@
 
 ## ✨ Overview
 
-Dead Hand is an AI agent built on the Droidrun framework that automates complex mobile interactions through natural language. It helps users navigate frustrating app designs and streamline common tasks with simple commands.
+Dead Hand is a smart agent that acts as a "Dark Pattern Detective". It passively watches your screen, analyzes UI elements using AI, and detects manipulative design patterns (Dark Patterns) in real-time. It provides a detailed dashboard to review findings and protect users from digital deception.
 
 ## 🚀 Quick Start
 
@@ -21,56 +24,65 @@ cd dead-hand
 pip install -r requirements.txt
 ```
 
+### Configuration
+1. Create a `.env` file in the root directory.
+2. Add your OpenRouter API key and model:
+```env
+OPENROUTER_API_KEY=your_key_here
+MODEL_NAME=google/gemini-2.0-flash-exp:free
+```
+3. Ensure your Android device is connected via ADB:
+```bash
+adb devices
+```
+
 ### Basic Usage
-```python
-from dead_hand import DeadHandAgent
 
-# Initialize the agent
-agent = DeadHandAgent(device_id="your_device_id")
+1. **Start the Watcher**:
+The watcher monitors your screen and analyzes it for dark patterns.
+```bash
+python watcher.py
+```
 
-# Execute commands
-agent.execute_command("Cancel my Audible subscription")
-agent.execute_command("Fill my passport info here")
-agent.execute_command("Buy this laptop, avoid extras")
+2. **View the Dashboard**:
+Explore the detected patterns and analysis reports.
+```bash
+streamlit run dashboard.py
 ```
 
 ## 📋 Features
 
-- **Subscription Management**: Handles cancellation flows for various services
-- **Smart Form Filling**: Inputs data while maintaining privacy and context
-- **Safe Shopping**: Navigates checkout processes and avoids unwanted additions
-- **Cross-App Workflows**: Manages tasks that span multiple applications
-- **UI Adaptation**: Responds to changing interfaces and unexpected dialogs
+- **Real-time Screen Monitoring**: Automatically captures screen state changes.
+- **AI-Powered Analysis**: Uses VLM (Vision Language Models) to detect dark patterns.
+- **Interactive Dashboard**: Visualize findings, darkness scores, and verdicts.
+- **Smart De-duplication**: Avoids processing static screens to save resources.
 
 ## 🏗️ Architecture
 
-Built on Droidrun's automation capabilities with:
-- LLM-based decision making
-- Screen analysis and pattern recognition
-- Multi-app context management
-- Error recovery mechanisms
+- **Watcher (`watcher.py`)**: Handles ADB connection, screen capture, and hashing.
+- **Analyzer (`src/analyzer.py`)**: Interfaces with the AI model to score UI darkness.
+- **Dashboard (`dashboard.py`)**: A Streamlit app for reporting and visualization.
 
 ## 📁 Structure
 ```
 dead-hand/
-├── apps/              # Application-specific logic
-├── core/              # Core agent functionality  
-├── detectors/         # UI pattern detection
-├── privacy/           # Privacy management
-└── tests/             # Testing modules
+├── src/
+│   ├── analyzer.py
+│   ├── config.py
+│   ├── droid_utils.py
+│   └── logger.py
+├── data/
+├── assets/
+├── prompts/
+├── trajectories/
+├── dashboard.py
+├── watcher.py
+├── .env
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
 
-## 🔧 Development
-
-### Testing
-```bash
-pytest tests/
-```
-
-### Adding Support
-1. Create app profile in `apps/your_app.py`
-2. Define UI patterns and navigation
-3. Add corresponding tests
 
 ## 📄 License
 
