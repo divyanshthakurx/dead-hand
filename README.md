@@ -44,7 +44,20 @@ The watcher monitors your screen and analyzes it for dark patterns.
 python watcher.py
 ```
 
-2. **View the Dashboard**:
+2. **Run the Droidrun Agent**:
+You can control your device using natural language prompts. Run the following command to initiate an agent session.
+```bash
+droidrun run "<task for the agent>" --provider <provider_name> --model <model_name> --steps <limit>
+```
+
+| Argument / Flag | Description | Examples |
+| :--- | :--- | :--- |
+| `<task>` | The natural language instruction for the agent. | `"Turn on Dark Mode"` |
+| `--provider` | The AI provider backend to use. | `OpenRouter`, `OpenAI`, `Anthropic` |
+| `--model` | The specific model ID for inference. | `google/gemini-2.0-flash` |
+| `--steps` | Maximum number of actions the agent can take. | `10` |
+
+3. **View the Dashboard**:
 Explore the detected patterns and analysis reports.
 ```bash
 streamlit run dashboard.py
