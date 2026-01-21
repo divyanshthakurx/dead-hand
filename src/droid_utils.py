@@ -16,13 +16,15 @@ class DeviceController:
         return path
 
     def get_screen_hash(self, image_path):
-        """Creates a hash of the screen (cropping status bar)."""
+        """
+        Hashes a tiny, blurry version of the screen. 
+        This ignores small changes like the Clock, Battery, or Blinking Cursors.
+        """
         try:
             with Image.open(image_path) as img:
-                width, height = img.size
-                crop_box = (0, int(height * 0.1), width, height)
-                
-                small = img.crop(crop_box).convert('L').resize((32, 32)) 
+                # Resize to a small thumbnail (50 pixels wide)
+                # This "blurs" away the time text so 12:00 and 12:01 look the same.
+                small = img.resize((50, 100)) 
                 return hashlib.md5(small.tobytes()).hexdigest()
         except Exception:
             return "error"
