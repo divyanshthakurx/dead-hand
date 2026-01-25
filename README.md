@@ -15,9 +15,7 @@
 
 Dead Hand is a smart agent that acts as a "Dark Pattern Detective". It passively watches your screen, analyzes UI elements using AI, and detects manipulative design patterns (Dark Patterns) in real-time. It provides a detailed dashboard to review findings and protect users from digital deception.
 
-<video controls poster="https://github.com/user-attachments/assets/3c873008-61ef-4721-9ef2-8d1fc44e4a0b" width="560" height="315">
-  <source src="https://github.com/user-attachments/assets/4cb08f2e-8b5d-4b82-a5ba-dbaf5f8c47ed" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/1bbe1755-742e-4075-add6-b11c23db396b
 
 ## 🚀 Quick Start
 
@@ -48,9 +46,6 @@ The watcher monitors your screen and analyzes it for dark patterns.
 python watcher.py
 ```
 
-<<<<<<< HEAD
-2. **View the Dashboard**:
-=======
 2. **Run the Droidrun Agent**:
 You can control your device using natural language prompts. Run the following command to initiate an agent session.
 ```bash
@@ -65,7 +60,6 @@ droidrun run "<task for the agent>" --provider <provider_name> --model <model_na
 | `--steps` | Maximum number of actions the agent can take. | `10` |
 
 3. **View the Dashboard**:
->>>>>>> 5d5a527a79e2e86df72b50a5c3cba473ca00a387
 Explore the detected patterns and analysis reports.
 ```bash
 streamlit run dashboard.py
