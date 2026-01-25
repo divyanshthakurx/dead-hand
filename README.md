@@ -16,7 +16,7 @@
 Dead Hand is a smart agent that acts as a "Dark Pattern Detective". It passively watches your screen, analyzes UI elements using AI, and detects manipulative design patterns (Dark Patterns) in real-time. It provides a detailed dashboard to review findings and protect users from digital deception.
 
 <video controls poster="assets/demo_video_thumbnail.jpeg">
-  <source src="assets/demo_video.mp4" type="video/mp4">
+  <source src="assets/https://github.com/user-attachments/assets/feedb6f3-03ae-4300-b6de-fb29c7e41635/demo_video.mp4" type="video/mp4">
 </video>
 
 ## 🚀 Quick Start
