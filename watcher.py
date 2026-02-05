@@ -29,7 +29,7 @@ report_data = {
     "steps": []
 }
 
-print(f"💀 Dead Hand Watcher Active | ID: {run_id}")
+print(f"⚖️  Dead Hand: DPDP Enforcer Active | ID: {run_id}")
 mission_name = input("Enter mission name: ") or "Unnamed Mission"
 report_data["prompt"] = mission_name
 
@@ -45,6 +45,14 @@ def analyze_darkness_worker():
 
         try:
             result = analyzer.analyze(image_path)
+            
+            # --- DPDP INTERVENTION LOGIC ---
+            if result.get("verdict") == "Violation":
+                actor = result.get("actor", "Unknown App")
+                req = result.get("request", "Unknown Data")
+                print(f"\n⚠️  [DPDP ALERT] Blocked '{actor}' from accessing '{req}'!")
+                print(f"    Reason: {result.get('necessity_check')}")
+                # Placeholder for actual click: device.tap_deny()
             
             with file_lock:
                 step_entry = {

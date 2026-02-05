@@ -9,14 +9,14 @@ class DarknessAnalyzer:
         self._load_prompt()
 
     def _load_prompt(self):
-        prompt_path = os.path.join("prompts", "dark_pattern.txt")
+        prompt_path = os.path.join("prompts", "dpdp_enforcer.txt")
         try:
             with open(prompt_path, "r", encoding="utf-8") as f:
                 self.prompt_template = f.read()
-            print(f"📄 Loaded prompt from {prompt_path}")
+            print(f"📄 Loaded DPDP Enforcer prompt from {prompt_path}")
         except Exception as e:
             print(f"⚠️ Could not load prompt file: {e}")
-            self.prompt_template = "Analyze this UI for Dark Patterns. Return JSON with {score, findings, verdict}."
+            self.prompt_template = "Analyze this UI for DPDP Violations. Return JSON with {actor, request, necessity_check, verdict, section_6_status}."
 
     def analyze(self, image_path):
         if not Config.OPENROUTER_API_KEY:

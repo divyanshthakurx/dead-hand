@@ -17,6 +17,24 @@ Dead Hand is a smart agent that acts as a "Dark Pattern Detective". It passively
 
 https://github.com/user-attachments/assets/1bbe1755-742e-4075-add6-b11c23db396b
 
+## ⚖️ v2.0: The DPDP Enforcer (New!)
+
+> *"A Lawyer in Your Pocket."*
+
+While v1.0 focused on detecting dark patterns, **Dead Hand v2.0** evolves into a proactive privacy shield enforcing the **Indian Digital Personal Data Protection (DPDP) Act, 2023**. 
+
+It specifically enforces **Section 6 (Purpose Limitation)**:
+*A Data Fiduciary (App) shall collect personal data only for a lawful purpose for which the Data Principal (User) has given consent, and where such collection is necessary.*
+
+### How it Works (The OODA Loop)
+Dead Hand v2.0 operates on a strict **Observe-Orient-Decide-Act** loop:
+
+1.  **Observe**: Passively monitors the screen for permission dialogs (e.g., "Allow Calculator to access Contacts?").
+2.  **Orient**: Uses OCR & VLM to identify the **Actor** (App) and the **Request** (Data).
+3.  **Decide**: A specialized **Legal Logic LLM** evaluates "Necessity".
+    *   *Logic*: "Does a Calculator need Contacts to do math?" -> **NO**.
+4.  **Act**: If a violation is detected, Dead Hand **Intervenes** and blocks the request automatically.
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -70,7 +88,15 @@ streamlit run dashboard.py
 - **Real-time Screen Monitoring**: Automatically captures screen state changes.
 - **AI-Powered Analysis**: Uses VLM (Vision Language Models) to detect dark patterns.
 - **Interactive Dashboard**: Visualize findings, darkness scores, and verdicts.
+- **Real-time Screen Monitoring**: Automatically captures screen state changes.
+- **AI-Powered Analysis**: Uses VLM (Vision Language Models) to detect dark patterns.
+- **Interactive Dashboard**: Visualize findings, darkness scores, and verdicts.
 - **Smart De-duplication**: Avoids processing static screens to save resources.
+
+### v2.0 Capabilities
+- **DPDP Act Enforcement**: Checks for Section 6 (Purpose Limitation) violations.
+- **Legal Logic Engine**: Distinguishes between "Necessary" (Maps -> Location) and "Predatory" (Flashlight -> Location) requests.
+- **Automated Intervention**: Blocks permission requests that violate privacy laws.
 
 ## 🏗️ Architecture
 

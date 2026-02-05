@@ -3,8 +3,8 @@ import json
 import os
 from PIL import Image
 
-st.set_page_config(layout="wide", page_title="Dead Hand Dashboard")
-st.title("💀 Dead Hand: Dark Pattern Detective")
+st.set_page_config(layout="wide", page_title="Dead Hand: DPDP Enforcer")
+st.title("⚖️ Dead Hand: DPDP Enforcer Console")
 
 runs_dir = os.path.join("data", "runs")
 
@@ -32,19 +32,16 @@ if selected_run:
         
         # --- FIX 1: Handle missing keys safely ---
         steps = data.get('steps', [])
-        scores = []
-        for s in steps:
-            # Check for both keys just in case
-            analysis = s.get('analysis', {})
-            val = analysis.get('score', analysis.get('darkness_score', 0))
-            scores.append(val)
-            
-        avg_score = sum(scores) / len(scores) if scores else 0
+        
+        # Calculate DPDP Metrics
+        total_checks = len(steps)
+        violations = [s for s in steps if s.get('analysis', {}).get('verdict') == "Violation"]
+        violation_count = len(violations)
         
         col1, col2, col3 = st.columns(3)
-        col1.metric("Total Steps", len(steps))
-        col2.metric("Avg Darkness Score", f"{avg_score:.1f}/10")
-        col3.metric("High Risk Screens", sum(1 for s in scores if s > 7))
+        col1.metric("🔍 Screen Checks", total_checks)
+        col2.metric("🛡️ Interventions Triggered", violation_count)
+        col3.metric("⚖️ DPDP Compliance Rate", f"{((total_checks - violation_count)/total_checks * 100):.1f}%" if total_checks > 0 else "100%")
 
         st.divider()
 
@@ -65,20 +62,22 @@ if selected_run:
                 with c2:
                     analysis = step.get('analysis', {})
                     
-                    score = analysis.get('score', 0)
+                    verdict = analysis.get('verdict', 'Unknown')
+                    section6 = analysis.get('section_6_status', 'N/A')
                     
-                    color = "green" if score < 4 else "orange" if score < 7 else "red"
-                    st.markdown(f"### Darkness Score: :{color}[{score}/10]")
-                    st.markdown(f"**Verdict:** {analysis.get('verdict', 'N/A')}")
-                    
-                    st.markdown("**Findings:**")
-                    
-                    findings = analysis.get('findings', [])
-                    if isinstance(findings, list):
-                        for pat in findings:
-                            st.markdown(f"- {pat}")
+                    if verdict == "Violation":
+                         st.error(f"### 🛑 BLOCKED: {analysis.get('actor', 'Unknown App')}")
+                    elif verdict == "Safe":
+                         st.success(f"### ✅ ALLOWED: {analysis.get('actor', 'Unknown App')}")
                     else:
-                        st.markdown(str(findings))
+                         st.info(f"### ℹ️ Status: {verdict}")
+
+                    st.markdown(f"**Request:** `{analysis.get('request', 'None')}`")
+                    st.markdown(f"**Section 6 Status:** {section6}")
+                    
+                    st.markdown("---")
+                    st.markdown(f"**🧠 Legal Logic:**")
+                    st.caption(analysis.get('necessity_check', 'No reasoning provided.'))
 
     else:
         st.info("Waiting for data... (Run the watcher!)")

@@ -9,7 +9,7 @@ class Config:
     TIMEOUT_SECONDS = 15     
     MAX_STEPS = 40
     CHECK_INTERVAL = 1.0     
-    COOLDOWN_SECONDS = 2.0   
+    COOLDOWN_SECONDS = 5.0   
     
     RUN_ID = None 
     RUNS_DIR = os.path.join("data", "runs")

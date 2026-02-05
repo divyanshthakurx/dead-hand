@@ -17,14 +17,23 @@ class DeviceController:
 
     def get_screen_hash(self, image_path):
         """
-        Hashes a tiny, blurry version of the screen. 
-        This ignores small changes like the Clock, Battery, or Blinking Cursors.
+        Hashes a tiny, grayscale, cropped version of the screen.
+        Ignores the Status Bar (top 8%) and small pixel changes (clock/battery).
         """
         try:
             with Image.open(image_path) as img:
-                # Resize to a small thumbnail (50 pixels wide)
-                # This "blurs" away the time text so 12:00 and 12:01 look the same.
-                small = img.resize((50, 100)) 
+                # 1. Convert to Grayscale to ignore color shifts
+                gray = img.convert("L")
+                
+                # 2. Crop out the Status Bar (Top 8% of the screen)
+                w, h = gray.size
+                status_bar_height = int(h * 0.08)
+                cropped = gray.crop((0, status_bar_height, w, h))
+                
+                # 3. Resize to a tiny thumbnail (16x32)
+                # This makes it very blurry, ignoring small text changes like time.
+                small = cropped.resize((16, 32), Image.Resampling.BILINEAR)
+                
                 return hashlib.md5(small.tobytes()).hexdigest()
         except Exception:
             return "error"
