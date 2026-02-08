@@ -11,11 +11,7 @@
 
 </div>
 
-## ✨ Overview
-
-Dead Hand is a smart agent that acts as a "Dark Pattern Detective". It passively watches your screen, analyzes UI elements using AI, and detects manipulative design patterns (Dark Patterns) in real-time. It provides a detailed dashboard to review findings and protect users from digital deception.
-
-## ⚖️ v2.0: The DPDP Enforcer (New!)
+## ⚖️ v2.0: The DPDP Enforcer
 
 > *"A Lawyer in Your Pocket."*
 
@@ -112,7 +108,10 @@ dead-hand/
 │   └── logger.py
 ├── data/
 ├── assets/
+│   ├── dead-hand_logo.png
 ├── prompts/
+│   ├── dark_pattern.txt
+│   ├── dpdp_enforcer.txt
 ├── trajectories/
 ├── dashboard.py
 ├── watcher.py
@@ -136,6 +135,6 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-A submission for Droidrun DevSprint 2026
+A submission for Droidrun DevSprint 2026 (Round 2)
 
 </div>
