@@ -20,6 +20,10 @@ While v1.0 focused on detecting dark patterns, **Dead Hand v2.0** evolves into a
 It specifically enforces **Section 6 (Purpose Limitation)**:
 *A Data Fiduciary (App) shall collect personal data only for a lawful purpose for which the Data Principal (User) has given consent, and where such collection is necessary.*
 
+
+https://github.com/user-attachments/assets/baf658a4-fde2-4f4a-a368-f4bef2d5971e
+
+
 ### How it Works (The OODA Loop)
 Dead Hand v2.0 operates on a strict **Observe-Orient-Decide-Act** loop:
 
